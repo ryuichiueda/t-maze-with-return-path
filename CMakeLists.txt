@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(t-maze-with-return-path)
+project(t_maze_return_path)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -7,6 +7,8 @@ project(t-maze-with-return-path)
 find_package(catkin REQUIRED COMPONENTS
   rosmsg
   rospy
+  std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -50,11 +52,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  ExecAction.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -64,10 +65,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs  # Or other packages containing msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -100,7 +101,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES t-maze-with-return-path
+#  LIBRARIES t_maze_return_path
 #  CATKIN_DEPENDS rosmsg rospy
 #  DEPENDS system_lib
 )
@@ -117,24 +118,24 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(t-maze-with-return-path
-#   src/${PROJECT_NAME}/t-maze-with-return-path.cpp
+# add_library(t_maze_return_path
+#   src/${PROJECT_NAME}/t_maze_return_path.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(t-maze-with-return-path ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(t_maze_return_path ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(t-maze-with-return-path_node src/t-maze-with-return-path_node.cpp)
+# add_executable(t_maze_return_path_node src/t_maze_return_path_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(t-maze-with-return-path_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(t_maze_return_path_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(t-maze-with-return-path_node
+# target_link_libraries(t_maze_return_path_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -153,7 +154,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS t-maze-with-return-path t-maze-with-return-path_node
+# install(TARGETS t_maze_return_path t_maze_return_path_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -178,7 +179,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_t-maze-with-return-path.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_t_maze_return_path.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
