@@ -1,4 +1,5 @@
 string action
 ---
-string observation
+string sensor
 float64 reward
+string result
