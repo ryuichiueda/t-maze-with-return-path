@@ -12,13 +12,21 @@ class Env:
         self.cell = [str1,str2,str3]
         self.x = 2
         self.y = 2
+        self.prev_x = None
+        self.prev_y = None
         self.d = "^"
+        self.food_x = None
+        self.food_y = None
+
+        self.trial = 0
 
     def p(self):
         ans = "-------"
         for i,line in enumerate(self.cell):
             if self.y == i:
                 line = line[0:self.x] + self.d + line[self.x+1:]
+            if self.food_y == i and self.food_x != None:
+                line = line[0:self.food_x] + '@'+ line[self.food_x+1:]
             line = "|" + line + "|"
 
             ans = ans + "\n" + line
@@ -33,6 +41,7 @@ class Env:
         return True
 
     def move(self,action):
+        self.prev_x,self.prev_y = self.x,self.y
         if action == "fw":
             x,y = self.x, self.y
             if self.d == "^": y = y - 1
@@ -70,18 +79,42 @@ class Env:
 
         return self.in_the_env(x,y)
 
+    def food_rule(self):
+        if (self.x,self.y) == (self.food_x,self.food_y):
+            self.food_x = None
+            self.food_y = None
+            return 1.0
+
+        if self.prev_x == 2 and self.prev_y == 2:
+            return 0.0
+        if self.x != 2 or self.y != 2:
+            return 0.0
+
+        self.food_y = 0
+        if self.trial%2 == 0:
+            self.food_x = 3
+        else:
+            self.food_x = 1
+
+        self.trial = self.trial + 1
+        return 0.0
+
 env = Env()
 
 def callback_action(message):
     a = message.action
     d = ExecActionResponse()
-    d.reward = 0.0
     d.result = env.move(a)
     d.sensor = "NO_WALL" if env.is_visible_forward() else "WALL"
+
+    d.reward = env.food_rule()
+
     rospy.loginfo("\n" + env.p())
     return d
 
 def listner():
+    env.food_x = 1
+    env.food_y = 0
     rospy.init_node('t_maze_with_return_path')
     srv = rospy.Service('action', ExecAction, callback_action)
     rospy.spin()
