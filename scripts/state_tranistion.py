@@ -80,23 +80,24 @@ class Env:
         return self.in_the_env(x,y)
 
     def food_rule(self):
-        if (self.x,self.y) == (self.food_x,self.food_y):
+        if (self.x,self.y) == (self.food_x,self.food_y):# agent gets the food
             self.food_x = None
             self.food_y = None
             return 1.0
 
-        if self.prev_x == 2 and self.prev_y == 2:
-            return 0.0
-        if self.x != 2 or self.y != 2:
+        if self.x == 2 and self.y == 2: # at the start pos
+            if self.food_x != None:
+                return 0.0
+
+            self.food_y = 0
+            if self.trial%2 == 0:
+                self.food_x = 3
+            else:
+                self.food_x = 1
+
+            self.trial = self.trial + 1
             return 0.0
 
-        self.food_y = 0
-        if self.trial%2 == 0:
-            self.food_x = 3
-        else:
-            self.food_x = 1
-
-        self.trial = self.trial + 1
         return 0.0
 
 env = Env()
