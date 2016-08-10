@@ -8,11 +8,11 @@ A state transition simulator of a mouse in T-maze with pathway (8-maze)
 
 # environment
 
--------
-| @   |   @: food
-| x x |   x: occupied cell
-|<    |   <: agent
--------
+    -------
+    | @   |   @: food
+    | x x |   x: occupied cell
+    |<    |   <: agent
+    -------
 
 # actions
 
