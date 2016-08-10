@@ -7,9 +7,9 @@ from t_maze_return_path.srv import ExecAction,ExecActionResponse
 from std_msgs.msg import String
 
 def act():
-    rospy.wait_for_service('/action')
+    rospy.wait_for_service('/t_maze_return_path/action')
     try:
-        exec_action = rospy.ServiceProxy('/action',ExecAction)
+        exec_action = rospy.ServiceProxy('/t_maze_return_path/action',ExecAction)
 
         action = "fw"
         r = random.randint(0,2)
@@ -27,5 +27,6 @@ def act():
     time.sleep(0.3)
 
 if __name__ == '__main__':
+    rospy.init_node('behavior_random')
     while True:
         act()

@@ -1,0 +1,6 @@
+<launch>
+  <group ns="t_maze_return_path">
+    <node pkg="t_maze_return_path" name="environment" type="environment.py" output="screen" />
+    <node pkg="t_maze_return_path" name="behavior_random" type="behavior_random.py" output="screen" />
+  </group>
+</launch>
