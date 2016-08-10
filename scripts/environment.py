@@ -100,8 +100,6 @@ class Env:
 
         return -1.0
 
-env = Env()
-
 def callback_action(message):
     a = message.action
     d = ExecActionResponse()
@@ -113,17 +111,16 @@ def callback_action(message):
     rospy.loginfo("\n" + env.p())
     return d
 
-def listner():
-    env.food_x = 1
-    env.food_y = 0
-    rospy.init_node('environment')
-    srv = rospy.Service('action', ExecAction, callback_action)
-    rospy.spin()
-
-
 if __name__ == '__main__':
+    env = Env()
+
     try:
-        listner()
+        env.food_x = 1
+        env.food_y = 0
+        rospy.init_node('environment')
+        srv = rospy.Service('action', ExecAction, callback_action)
+        rospy.loginfo("\n" + env.p())
+        rospy.spin()
 
     except rospy.ROSInterruptException:
         pass
